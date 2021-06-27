@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { LaddaModule } from 'angular2-ladda';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
+import { CalendarModule } from './calendar/calendar.module';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ToastrModule } from 'ngx-toastr';
       style: 'expand-right'
     }),
     NgbModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    CalendarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
