@@ -1,1 +1,39 @@
-<p>month works!</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <table class="table table-bordered">
+        <thead>
+          <tr class="th-bg">
+            <th scope="col" class="text-center text-white" *ngFor="let weekDay of weekDays">{{ weekDay }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of monthDays | chunk: 7; let i = index">
+            <td *ngFor="let c of row; let j = index">
+              {{c | json}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <ol>
+        <li class="day-name" *ngFor="let weekDay of weekDays">{{ weekDay }}</li>
+
+        <li *ngFor="let day of monthDays; let first = first"
+          [style.gridColumnStart]="first ? day?.numberInWeek : 'auto'"
+        >
+          <span>{{ day.value }}</span>
+        </li>
+      </ol>
+    </div>
+  </div>
+</div>

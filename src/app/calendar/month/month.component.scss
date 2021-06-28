@@ -1,0 +1,22 @@
+.th-bg {
+  background-color: #2f75b5;
+}
+
+ol {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  padding: 0;
+}
+
+.first-day {
+  grid-column-start: 3;
+}
+
+.day-name {
+  background: #2f75b5;
+  font-weight: bold;
+  color: white;
+}
+
+

@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 import { CalendarRoutingModule } from './calendar-routing.module';
 import { MonthComponent } from './month/month.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -10,7 +10,7 @@ import { MonthComponent } from './month/month.component';
     MonthComponent
   ],
   imports: [
-    CommonModule,
+    SharedModule,
     CalendarRoutingModule
   ]
 })
