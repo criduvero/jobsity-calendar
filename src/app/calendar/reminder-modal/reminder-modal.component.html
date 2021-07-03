@@ -31,13 +31,8 @@
       </div>
     </div>
 
-    <pre>
-      {{ reminder | json}}
-    </pre>
-
-
   </div>
-  <!-- <pre> {{ product | json }}</pre> -->
+  <pre> {{ reminder | json }}</pre>
   <div class="modal-footer">
     <button class="btn btn-outline-secondary" type="button" (click)="activeModal.close()" [disabled]="isLoading">Cancel</button>
     <button type="submit" class="btn btn-primary" [disabled]="!reminderForm.valid" [ladda]="isLoading">

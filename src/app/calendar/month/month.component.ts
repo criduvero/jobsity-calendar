@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment'
+import { ToastrService } from 'ngx-toastr';
 import { Day } from 'src/app/models/day.model';
+import { Reminder } from 'src/app/models/reminder.model';
 import { CalendarService } from 'src/app/services/calendar.service';
 import { Globals } from 'src/app/shared/globals';
 import { ReminderModalComponent } from '../reminder-modal/reminder-modal.component';
@@ -22,7 +24,6 @@ export class MonthComponent implements OnInit {
     'Friday',
     'Saturday'
   ]
-
   year: number;
   month: number;
   days: any[];
@@ -31,15 +32,16 @@ export class MonthComponent implements OnInit {
   constructor(
     private globals: Globals,
     private calendarService: CalendarService,
-    private modalService: NgbModal) { }
+    private modalService: NgbModal,
+    private toastr: ToastrService,) { }
 
   ngOnInit(): void {
     this.year = moment().year();
-    this.month = moment().month();
-    console.log(this.month);
+    this.month = moment().month(); // get month 0-11
     console.log(this.year);
+    console.log(this.month + 1);
 
-    this.days = this.getDays(this.year, this.month);
+    this.getDays(this.year, this.month);
   }
 
   getDays(year: number, month: number) {
@@ -49,6 +51,8 @@ export class MonthComponent implements OnInit {
     for (let i = 1; i <= daysInMonthQty; i++) {
       monthDays.push({
         dayNumber: i,
+        year,
+        month: month + 1,
         dateFormatted: moment().year(year).month(month).date(i).format('YYYY-MM-DD'),
         date: moment().year(year).month(month).date(i)
       });
@@ -57,12 +61,33 @@ export class MonthComponent implements OnInit {
     const previousMonthDays = this.getPreviousMonthDays(year, month);
     const nextMonthDays = this.getNextMonthDays(year, month);
 
-    return [
+    this.days = [
       ...previousMonthDays,
       ...monthDays,
       ...nextMonthDays,
     ];
 
+    this.getReminders(year, month + 1); // (real month number)
+  }
+
+  getReminders(year:number, month: number) {
+    const params = { year, month };
+    this.calendarService.getAll(params)
+      .subscribe((data: Reminder[]) => {
+        // console.log(data);
+        this.days.forEach(day => {
+          const reminders = data.filter((reminder: Reminder) => {
+            if (reminder.date.year == day.year && reminder.date.month == day.month && reminder.date.day == day.dayNumber) {
+              return reminder;
+            }
+          })
+
+          day = {... day, reminders};
+          console.log('day with reminders', day);
+
+        });
+      },
+      error => this.toastr.error(error, 'Error getting reminder'));
   }
 
   getPreviousMonthDays(year: number, month: number) {

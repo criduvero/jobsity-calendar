@@ -15,7 +15,7 @@ export class CalendarService {
 
   constructor(private http: HttpClient) { }
 
-  getAll(myParams?: any): Observable<Reminder[]> {
+  getAll(myParams: any): Observable<Reminder[]> {
     console.log('getAll', myParams);
     const url = `${this.API_URL}`;
     const params: HttpParams  = new HttpParams({ fromObject: myParams });
