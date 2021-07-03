@@ -9,6 +9,7 @@ import { LaddaModule } from 'angular2-ladda';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
 import { CalendarModule } from './calendar/calendar.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { CalendarModule } from './calendar/calendar.module';
     BrowserModule,
     BrowserAnimationsModule, // required animations module
     AppRoutingModule,
+    FormsModule,
     LaddaModule.forRoot({
       style: 'expand-right'
     }),

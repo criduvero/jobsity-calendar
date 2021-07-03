@@ -14,8 +14,8 @@
         </thead>
         <tbody>
           <tr *ngFor="let row of days | chunk: 7; let i = index">
-            <td *ngFor="let c of row; let j = index">
-              {{c | json}}
+            <td *ngFor="let day of row; let j = index" (click)="openModal(day)">
+              {{day | json}}
             </td>
           </tr>
         </tbody>

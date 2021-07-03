@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment'
+import { Day } from 'src/app/models/day.model';
+import { CalendarService } from 'src/app/services/calendar.service';
+import { Globals } from 'src/app/shared/globals';
+import { ReminderModalComponent } from '../reminder-modal/reminder-modal.component';
 
 @Component({
   selector: 'app-month',
@@ -23,7 +28,10 @@ export class MonthComponent implements OnInit {
   days: any[];
 
 
-  constructor() { }
+  constructor(
+    private globals: Globals,
+    private calendarService: CalendarService,
+    private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.year = moment().year();
@@ -57,7 +65,7 @@ export class MonthComponent implements OnInit {
 
   }
 
-  getPreviousMonthDays(year, month) {
+  getPreviousMonthDays(year: number, month: number) {
     const previousMonthDays = [];
     const currentMonthFirstDay = moment().year(year).month(month).startOf('month');
     console.log('currentMonthFirstDay', currentMonthFirstDay);
@@ -93,7 +101,7 @@ export class MonthComponent implements OnInit {
 
   }
 
-  getNextMonthDays(year, month) {
+  getNextMonthDays(year: number, month: number) {
     const nextMonthDays = [];
     const currentMonthLastDay = moment().year(year).month(month).endOf('month');
     console.log('currentMonthLastDay', currentMonthLastDay);
@@ -128,36 +136,12 @@ export class MonthComponent implements OnInit {
     return nextMonthDays;
   }
 
-  getDays2(month, year) {
-
-    /* const firstDay = moment.utc(`${year}-${month}-1`, 'YYYY-M-D');
-
-    const lastDay = firstDay.clone().endOf('month');
-
-    this.dateSelected = firstDay;
-
-    const totalDays = Math.round(lastDay.diff(firstDay, 'days', true));
-
-    const monthDays = Object.keys([ ...Array(totalDays)]).map((dayNumber: any) => {
-      dayNumber = parseInt(dayNumber) + 1;
-
-      const dayObject = moment(`${year}-${month}-${dayNumber}`);
-
-
-      return {
-        name: dayObject.format('dddd'),
-        value: dayNumber,
-        numberInWeek: dayObject.weekday() + 1
-      }
-
-    })
-
-    this.monthDays = monthDays;
-
-    console.log('monthDays', monthDays); */
-
+  openModal(day: Day, reminderId?: number) {
+    console.log(`openModal for day: ${day.dayNumber}, reminderId: ${reminderId}`);
+    const modalRef = this.modalService.open(ReminderModalComponent, this.globals.mdModal);
+    modalRef.componentInstance.day = day;
+    modalRef.componentInstance.reminderId = reminderId;
   }
-
 
 
 }

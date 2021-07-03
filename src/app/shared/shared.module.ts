@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ChunkPipe } from '../pipes/chunk.pipe';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { LaddaModule } from 'angular2-ladda';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 @NgModule({
   declarations: [
@@ -11,6 +15,10 @@ import { ChunkPipe } from '../pipes/chunk.pipe';
   ],
   exports: [
     CommonModule,
+    LaddaModule,
+    HttpClientModule,
+    FormsModule,
+    ColorPickerModule,
     ChunkPipe
   ]
 })
