@@ -10,6 +10,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
 import { CalendarModule } from './calendar/calendar.module';
 import { FormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { FormsModule } from '@angular/forms';
     }),
     NgbModule,
     ToastrModule.forRoot(),
-    CalendarModule
+    CalendarModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

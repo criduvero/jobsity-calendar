@@ -1,13 +1,20 @@
+interface ReminderDate {
+  year: number,
+  month: number,
+  day: number
+}
+
+interface ReminderTime {
+  hour: number,
+  minute: number
+}
 export class Reminder {
   constructor(
-    // public date: moment.Moment,
-    public year: number,
-    public month: number,
-    public day: number,
+    public title: string,
+    public date: ReminderDate,
     // public hour: moment.Moment,
     // public city: xxx,
-    public title: string,
-    public time: string,
+    public time: ReminderTime,
     public color: string,
     public _id?: string
   ) {}

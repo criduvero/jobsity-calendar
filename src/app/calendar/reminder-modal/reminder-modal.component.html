@@ -1,27 +1,39 @@
 <div class="modal-header">
   <h4 class="modal-title">{{ reminderId ? 'Update reminder':'Create reminder' }}</h4>
-  <!-- <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-    <span aria-hidden="true">&times;</span>
-  </button> -->
 </div>
 <form (ngSubmit)="onSubmit()" #reminderForm="ngForm">
   <div class="modal-body">
-
-
     <div class="form-group">
       <label for="name">Title</label>
-        <input type="text" class="form-control" id="title" name="title" [(ngModel)]="reminder.title" #title="ngModel" required>
+        <input type="text" class="form-control" id="title" name="title" placeholder="Add a title" [(ngModel)]="reminder.title" #title="ngModel" required maxlength="30">
         <div class="invalid-feedback" *ngIf="title.invalid && (title.dirty || title.touched)">
           <p *ngIf="title?.errors.required">Title is required</p>
         </div>
     </div>
 
     <div class="form-group row">
-      <div class="col-6">
-        <label for="partner">Color</label>
-        <!-- <input [(colorPicker)]="reminder.color" [style.background]="reminder.color"/> -->
+      <div class="col-5">
+        <div class="input-group">
+          <input class="form-control" placeholder="yyyy-mm-dd"
+                 name="dp" [(ngModel)]="reminder.date" ngbDatepicker #d="ngbDatepicker">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+              <fa-icon [icon]="faCalendarAlt"></fa-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-5">
+        <ngb-timepicker name="time" [(ngModel)]="reminder.time" [spinners]="false"></ngb-timepicker>
+      </div>
+      <div class="col-2">
+        <div class="color-picker" [(colorPicker)]="reminder.color" [style.background]="reminder.color"></div>
       </div>
     </div>
+
+    <pre>
+      {{ reminder | json}}
+    </pre>
 
 
   </div>
