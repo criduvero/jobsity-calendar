@@ -1,16 +1,16 @@
 <div class="modal-header">
   <h4 class="modal-title">{{ reminderId ? 'Update reminder':'Create reminder' }}</h4>
 </div>
-<form (ngSubmit)="onSubmit()" #reminderForm="ngForm">
-  <div class="modal-body">
-    <div class="form-group">
-      <label for="name">Title</label>
-        <input type="text" class="form-control" id="title" name="title" placeholder="Add a title" [(ngModel)]="reminder.title" #title="ngModel" required maxlength="30">
-        <div class="invalid-feedback" *ngIf="title.invalid && (title.dirty || title.touched)">
-          <p *ngIf="title?.errors.required">Title is required</p>
-        </div>
-    </div>
 
+<div class="modal-body">
+  <div class="form-group">
+    <label for="name">Title</label>
+      <input type="text" class="form-control" id="title" name="title" placeholder="Add a title" [(ngModel)]="reminder.title" #title="ngModel" required maxlength="30">
+      <div class="invalid-feedback" *ngIf="title.invalid && (title.dirty || title.touched)">
+        <p *ngIf="title?.errors.required">Title is required</p>
+      </div>
+  </div>
+  <form autocomplete="off">
     <div class="form-group row">
       <div class="col-5">
         <div class="input-group">
@@ -30,13 +30,14 @@
         <div class="color-picker" [(colorPicker)]="reminder.color" [style.background]="reminder.color"></div>
       </div>
     </div>
+  </form>
 
-  </div>
-  <pre> {{ reminder | json }}</pre>
-  <div class="modal-footer">
-    <button class="btn btn-outline-secondary" type="button" (click)="activeModal.close()" [disabled]="isLoading">Cancel</button>
-    <button type="submit" class="btn btn-primary" [disabled]="!reminderForm.valid" [ladda]="isLoading">
-      {{ reminderId ? 'Update':'Create' }}
-    </button>
-  </div>
-</form>
+  <ngb-alert *ngIf="fieldsValidationError" type="danger" [dismissible]="false">Please fill in all the fields correctly</ngb-alert>
+</div>
+<!-- <pre> {{ reminder | json }}</pre> -->
+<div class="modal-footer">
+  <button class="btn btn-outline-secondary" type="button" (click)="activeModal.dismiss()" [disabled]="isLoading">Cancel</button>
+  <button class="btn btn-primary" (click)="submitForm()" [ladda]="isLoading">
+    {{ reminderId ? 'Update':'Create' }}
+  </button>
+</div>

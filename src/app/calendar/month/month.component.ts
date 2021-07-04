@@ -165,14 +165,24 @@ export class MonthComponent implements OnInit {
     });
   }
 
-  openModal(day: Day, reminderId?: number) {
+  createReminder(day: Day) {
     if (day.currentMonth) {
-      console.log(`openModal for day: ${day.dayNumber}, reminderId: ${reminderId}`);
+      console.log(`openModal for day: ${day.dayNumber}`);
       const modalRef = this.modalService.open(ReminderModalComponent, this.globals.mdModal);
       modalRef.componentInstance.day = day;
-      modalRef.componentInstance.reminderId = reminderId;
+      modalRef.closed.subscribe((reminderCreated: Reminder) => {
+        this.addReminderToDay(reminderCreated);
+      })
     }
+  }
 
+  addReminderToDay(reminder: Reminder) {
+    this.days.map((day) => {
+      if (day.year == reminder.date.year && day.month == reminder.date.month && day.dayNumber == reminder.date.day) {
+        day.reminders.push(reminder);
+      }
+      return day;
+    })
   }
 
 

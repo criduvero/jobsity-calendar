@@ -12,7 +12,7 @@ export class DayComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log('day', this.day);
+    // console.log('day', this.day);
 
   }
 

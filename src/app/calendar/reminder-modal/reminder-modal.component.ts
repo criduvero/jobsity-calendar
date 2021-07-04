@@ -16,11 +16,10 @@ export class ReminderModalComponent implements OnInit {
 
   @Input() day: Day;
   @Input() reminderId: string;
-  reminder: Reminder = new Reminder('', {year: 2021, month: 7, day: 3}, {hour: null, minute: null}, '#2f75b5');// corregir
+  reminder: Reminder;
   isLoading = false;
-  // @ViewChild(NgbDatepicker) d: NgbDatepicker;
   faCalendarAlt = faCalendarAlt;
-
+  fieldsValidationError: boolean;
 
   constructor(
     private calendarService: CalendarService,
@@ -28,10 +27,13 @@ export class ReminderModalComponent implements OnInit {
     public activeModal: NgbActiveModal) { }
 
   ngOnInit(): void {
-    this.reminderId ? this.get(this.reminderId) : null ;
+    console.log(this.day);
+    this.reminder = new Reminder('', {year: this.day.year, month: this.day.month, day: this.day.dayNumber}, {hour: null, minute: null}, '#2f75b5');
+
+    this.reminderId ? this.getReminder(this.reminderId) : null ;
   }
 
-  get(reminderId: string) {
+  getReminder(reminderId: string) {
     this.calendarService.get(reminderId)
       .subscribe((data: Reminder) => {
         // console.log(data);
@@ -40,20 +42,47 @@ export class ReminderModalComponent implements OnInit {
       error => this.toastr.error(error, 'Error getting reminder'));
   }
 
-  onSubmit() {
-    this.isLoading = true;
-    this.reminderId ? this.onUpdate() : this.onCreate();
+  submitForm() {
+    let validationOK = this.validateFields();
+    if (validationOK) {
+      this.isLoading = true;
+      this.reminderId ? this.onUpdate() : this.onCreate();
+    }
+  }
+
+  validateFields(): boolean {
+    if (!this.reminder.title.length) {
+      this.showValidationAlert();
+      return false;
+    }
+
+    if (!(this.reminder.date.year && this.reminder.date.month && this.reminder.date.day)) {
+      this.showValidationAlert();
+      return false;
+    }
+
+    if (!(this.reminder.time.hour && this.reminder.time.minute)) {
+      this.showValidationAlert();
+      return false;
+    }
+
+    return true;
+  }
+
+  showValidationAlert() {
+    this.fieldsValidationError = true;
+    setTimeout(() => {
+      this.fieldsValidationError = false;
+    }, 4000);
   }
 
   onCreate() {
     this.calendarService.create(this.reminder)
       .subscribe(
-        (data: Reminder) => {
+        (reminderCreated: Reminder) => {
           this.toastr.success('The reminder has been successfully created', 'Successful operation');
-          console.log('creado en componente', data);
-
           this.isLoading = false;
-          this.activeModal.close();
+          this.activeModal.close(reminderCreated);
         },
         error => {
           this.toastr.error(error, 'Failed operation');
@@ -73,6 +102,11 @@ export class ReminderModalComponent implements OnInit {
           this.toastr.error(error, 'Operación fallida');
           this.isLoading = false;
         }); */
+  }
+
+  prueba(e) {
+    console.log(e);
+
   }
 
 }

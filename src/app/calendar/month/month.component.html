@@ -4,24 +4,6 @@
 
     </div>
   </div>
-  <!-- <div class="row">
-    <div class="col">
-      <table class="table table-bordered">
-        <thead>
-          <tr class="th-bg">
-            <th scope="col" class="text-center text-white" *ngFor="let weekDay of weekDays">{{ weekDay }}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let row of days | chunk: 7; let i = index">
-            <td *ngFor="let day of row; let first = first; let last = last;" (click)="openModal(day)" [ngClass]="{'weekend': first || last, 'current-month': day.currentMonth }">
-              <app-day [day] ="day"></app-day>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div> -->
   <div class="row">
     <div class="col">
       mes
@@ -37,7 +19,7 @@
       <ul class="day-number-list">
         <li *ngFor="let day of days" class="day-number"
           [ngClass]="{'weekend': day.weekDay == 0 || day.weekDay == 6, 'current-month': day.currentMonth }"
-          (click)="openModal(day)">
+          (click)="createReminder(day)">
           <app-day [day] ="day" class="list-content"></app-day>
         </li>
       </ul>
