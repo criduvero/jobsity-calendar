@@ -4,7 +4,7 @@
 
     </div>
   </div>
-  <div class="row">
+  <!-- <div class="row">
     <div class="col">
       <table class="table table-bordered">
         <thead>
@@ -21,19 +21,26 @@
         </tbody>
       </table>
     </div>
+  </div> -->
+  <div class="row">
+    <div class="col">
+      mes
+      mes
+    </div>
   </div>
 
-  <!-- <div class="row">
+  <div class="row">
     <div class="col">
-      <ol>
+      <ul class="day-name-list">
         <li class="day-name" *ngFor="let weekDay of weekDays">{{ weekDay }}</li>
-
-        <li *ngFor="let day of days; let first = first"
-          [style.gridColumnStart]="first ? day?.numberInWeek : 'auto'"
-        >
-          <span>{{ day.value }}</span>
+      </ul>
+      <ul class="day-number-list">
+        <li *ngFor="let day of days" class="day-number"
+          [ngClass]="{'weekend': day.weekDay == 0 || day.weekDay == 6, 'current-month': day.currentMonth }"
+          (click)="openModal(day)">
+          <app-day [day] ="day" class="list-content"></app-day>
         </li>
-      </ol>
+      </ul>
     </div>
-  </div> -->
+  </div>
 </div>
