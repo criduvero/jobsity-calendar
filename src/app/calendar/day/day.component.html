@@ -1,4 +1,9 @@
 <span class="day-number" [ngClass]="{'day-number-wekkend': day.weekDay == 0 || day.weekDay == 6, 'day-number-disabled': day.previousMonth || day.nextMonth}">{{ day.dayNumber }}</span>
-<div *ngFor="let reminder of day.reminders">
-  {{ reminder.title }}
+<div *ngFor="let reminder of day.reminders" class="reminder">
+  <div class="reminder-color-container">
+    <div class="reminder-color" [style.background]="reminder.color" [style.border-color]="reminder.color"></div>
+  </div>
+  <div>
+    <span>{{ reminder.title }}</span>
+  </div>
 </div>

@@ -13,3 +13,32 @@
   font-weight: bold;
 }
 
+.reminder {
+  // border: 2px solid red;
+  border-radius: 5px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  display: flex;
+  overflow: hidden;
+}
+
+.reminder:hover {
+  background-color: #e0e0e0;
+}
+
+.reminder-color-container {
+  display: flex;
+  align-items: center;
+  flex: none;
+  justify-content: center;
+  margin-right: 6px;
+}
+
+.reminder-color {
+  border-radius: 8px;
+  border: 6px solid;
+  height: 0;
+  width: 0;
+  display: block;
+}
+
