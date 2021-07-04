@@ -1,6 +1,7 @@
 .day-number {
   font-size: 1.3rem;
   font-weight: bold;
+  margin: 0px 0px 0px 5px;
 }
 
 .day-number-wekkend {
@@ -14,12 +15,12 @@
 }
 
 .reminder {
-  // border: 2px solid red;
   border-radius: 5px;
-  margin-top: 2px;
-  margin-bottom: 2px;
+  margin: 2px 5px 2px 0px;
+  padding: 0px 0px 0px 5px;
   display: flex;
   overflow: hidden;
+  align-items: center;
 }
 
 .reminder:hover {
@@ -31,14 +32,35 @@
   align-items: center;
   flex: none;
   justify-content: center;
-  margin-right: 6px;
+  margin-right: 4px;
 }
 
 .reminder-color {
-  border-radius: 8px;
-  border: 6px solid;
+  border-radius: 50%;
+  border: 5px solid;
   height: 0;
   width: 0;
   display: block;
+}
+
+.reminder-time-title {
+  align-items: center;
+  display: flex;
+  overflow: hidden;
+}
+
+.reminder-time {
+  margin-right: 4px;
+  font-size: 12px;
+  flex: none;
+  overflow: hidden;
+}
+
+.reminder-title {
+  margin-right: 4px;
+  font-size: 12px;
+  overflow: hidden;
+  flex: 0 1 auto;
+  white-space: nowrap;
 }
 

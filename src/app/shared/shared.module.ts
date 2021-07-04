@@ -7,6 +7,7 @@ import { LaddaModule } from 'angular2-ladda';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { OrderModule } from 'ngx-order-pipe';
 
 @NgModule({
   declarations: [],
@@ -18,6 +19,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     ColorPickerModule,
     NgbModule,
     FontAwesomeModule,
+    OrderModule
   ]
 })
 export class SharedModule { }
