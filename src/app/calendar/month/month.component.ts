@@ -68,8 +68,6 @@ export class MonthComponent implements OnInit {
       ...monthDays,
       ...nextMonthDays,
     ];
-    console.log(this.days);
-
 
     this.getReminders(year, month + 1); // (real month number)
   }
