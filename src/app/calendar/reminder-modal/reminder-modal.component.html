@@ -3,11 +3,11 @@
 </div>
 
 <div class="modal-body">
-  <div class="form-group">
-    <!-- <label for="title">Title</label> -->
-    <input type="text" class="form-control" id="title" name="title" placeholder="Add a title" [(ngModel)]="reminder.title" maxlength="30">
-  </div>
   <form autocomplete="off">
+    <div class="form-group">
+      <!-- <label for="title">Title</label> -->
+      <input type="text" class="form-control" id="title" name="title" placeholder="Add a title" [(ngModel)]="reminder.title" maxlength="30">
+    </div>
     <div class="form-group row">
       <div class="col-5">
         <div class="input-group">
@@ -26,6 +26,20 @@
       <div class="col-2">
         <div class="color-picker" [(colorPicker)]="reminder.color" [style.background]="reminder.color"></div>
       </div>
+    </div>
+    <div class="form-group">
+      <label for="city">City weather forecast</label>
+      <div class="input-group">
+        <input type="text" class="form-control" id="city" name="city" placeholder="Type city name" [(ngModel)]="reminder.city">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="button" (click)="getWeatherForecast(reminder.city)">
+            <fa-icon [icon]="faSearchLocation"></fa-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="alert alert-info" role="alert" *ngIf="weatherForecast">
+      {{ weatherForecast }}
     </div>
   </form>
 
