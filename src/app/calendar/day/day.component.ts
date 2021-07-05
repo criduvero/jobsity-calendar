@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Day } from 'src/app/models/day.model';
@@ -13,6 +13,7 @@ import { ReminderModalComponent } from '../reminder-modal/reminder-modal.compone
 })
 export class DayComponent implements OnInit {
   @Input() day: Day;
+  @Output() reminderUpdated: EventEmitter<Reminder> = new EventEmitter<Reminder>();
 
   constructor(
     private globals: Globals,
@@ -29,6 +30,7 @@ export class DayComponent implements OnInit {
     modalRef.componentInstance.reminderId = reminderId;
     modalRef.closed.subscribe((reminderUpdated: Reminder) => {
       console.log('reminderUpdated', reminderUpdated);
+      this.reminderUpdated.emit(reminderUpdated);
     })
   }
 

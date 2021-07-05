@@ -31,7 +31,7 @@
 
   <ngb-alert *ngIf="fieldsValidationError" type="danger" [dismissible]="false">Please fill in all the fields correctly</ngb-alert>
 </div>
-<pre> {{ reminder | json }}</pre>
+<!-- <pre> {{ reminder | json }}</pre> -->
 <div class="modal-footer">
   <button class="btn btn-outline-secondary" type="button" (click)="activeModal.dismiss()" [disabled]="isLoading">Cancel</button>
   <button class="btn btn-primary" (click)="submitForm()" [ladda]="isLoading">

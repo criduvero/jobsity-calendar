@@ -26,7 +26,7 @@ export class MonthComponent implements OnInit {
   ]
   year: number;
   month: number;
-  days: any[];
+  days: Day[];
 
 
   constructor(
@@ -177,11 +177,38 @@ export class MonthComponent implements OnInit {
   }
 
   addReminderToDay(reminder: Reminder) {
+    console.log('addReminderToDay');
+
     this.days.map((day) => {
       if (day.year == reminder.date.year && day.month == reminder.date.month && day.dayNumber == reminder.date.day) {
         day.reminders.push(reminder);
       }
       return day;
+    })
+  }
+
+  handleReminderUpdated(reminderUpdated: Reminder, day: Day, dayIndex: number) {
+    console.log('handleReminderUpdated');
+    if (day.year == reminderUpdated.date.year && day.month == reminderUpdated.date.month && day.dayNumber == reminderUpdated.date.day) { // same day after updated
+      this.updateReminderInDay(reminderUpdated, dayIndex)
+    } else {
+      this.removeReminderFromDay(reminderUpdated._id, dayIndex);
+      this.addReminderToDay(reminderUpdated);
+    }
+  }
+
+  removeReminderFromDay(reminderId: string, dayIndex: number) {
+    this.days[dayIndex].reminders = this.days[dayIndex].reminders.filter((item: Reminder) => {
+      return item._id !== reminderId
+    });
+  }
+
+  updateReminderInDay(reminderUpdated: Reminder, dayIndex: number) {
+    this.days[dayIndex].reminders = this.days[dayIndex].reminders.map((reminder: Reminder) => {
+      if (reminder._id == reminderUpdated._id) {
+        reminder = reminderUpdated;
+      }
+      return reminder;
     })
   }
 

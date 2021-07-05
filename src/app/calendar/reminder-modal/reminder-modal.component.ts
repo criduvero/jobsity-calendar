@@ -69,6 +69,16 @@ export class ReminderModalComponent implements OnInit {
       return false;
     }
 
+    if (this.reminder.time && this.reminder.time.hour == null) {
+      this.showValidationAlert();
+      return false;
+    }
+
+    if (this.reminder.time && this.reminder.time.minute == null) {
+      this.showValidationAlert();
+      return false;
+    }
+
     return true;
   }
 

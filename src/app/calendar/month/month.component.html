@@ -17,10 +17,10 @@
         <li class="day-name" *ngFor="let weekDay of weekDays">{{ weekDay }}</li>
       </ul>
       <ul class="day-number-list">
-        <li *ngFor="let day of days" class="day-number"
+        <li *ngFor="let day of days; let i = index;" class="day-number"
           [ngClass]="{'weekend': day.weekDay == 0 || day.weekDay == 6, 'current-month': day.currentMonth }"
           (click)="createReminder(day)">
-          <app-day [day] ="day" class="list-content"></app-day>
+          <app-day [day] ="day" class="list-content" (reminderUpdated)="handleReminderUpdated($event, day, i)"></app-day>
         </li>
       </ul>
     </div>
