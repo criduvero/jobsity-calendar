@@ -16,39 +16,39 @@ export class CalendarService {
   constructor(private http: HttpClient) { }
 
   getAllReminders(myParams: any): Observable<Reminder[]> {
-    console.log('getAll', myParams);
+    // console.log('getAll', myParams);
     const url = `${this.API_URL}`;
     const params: HttpParams  = new HttpParams({ fromObject: myParams });
     return this.http
       .get<Reminder[]>(url, { params }).pipe(
-        tap(console.log),
+        // tap(console.log),
         catchError(this.handleError));
   }
 
   getReminder(id: string): Observable<Reminder> {
-    console.log('get', id);
+    // console.log('get', id);
     const url = `${this.API_URL}/${id}`;
     return this.http
       .get<Reminder>(url).pipe(
-        tap(console.log),
+        // tap(console.log),
         catchError(this.handleError));
   }
 
   createReminder(object: Reminder): Observable<Reminder> {
-    console.log('create', object);
+    // console.log('create', object);
     const url = `${this.API_URL}`;
     return this.http
       .post<Reminder>(url, object).pipe(
-      tap(console.log),
+      // tap(console.log),
       catchError(this.handleError));
   }
 
   updateReminder(object: Reminder): Observable<Reminder> {
-    console.log(`update`, object);
+    // console.log(`update`, object);
     const url = `${this.API_URL}/update/${object._id}`;
     return this.http
       .put<Reminder>(url, object).pipe(
-        tap(console.log),
+        // tap(console.log),
         catchError(this.handleError));
   }
 

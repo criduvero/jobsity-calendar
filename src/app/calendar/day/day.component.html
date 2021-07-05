@@ -1,5 +1,5 @@
 <span class="day-number" [ngClass]="{'day-number-wekkend': day.weekDay == 0 || day.weekDay == 6, 'day-number-disabled': day.previousMonth || day.nextMonth}">{{ day.dayNumber }}</span>
-<div *ngFor="let reminder of day.reminders | orderBy: 'reminder.time.hour' | orderBy: 'reminder.time.minute'" class="reminder" (click)="openReminder(reminder._id);$event.stopPropagation()">
+<div *ngFor="let reminder of day.reminders | orderBy: 'time.hour': 'time.minute'" class="reminder" (click)="openReminder(reminder._id);$event.stopPropagation()">
   <div class="reminder-color-container">
     <div class="reminder-color" [style.background]="reminder.color" [style.border-color]="reminder.color"></div>
   </div>

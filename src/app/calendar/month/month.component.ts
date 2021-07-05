@@ -68,6 +68,8 @@ export class MonthComponent implements OnInit {
       ...monthDays,
       ...nextMonthDays,
     ];
+    console.log(this.days);
+
 
     this.getReminders(year, month + 1); // (real month number)
   }
@@ -75,14 +77,12 @@ export class MonthComponent implements OnInit {
   getPreviousMonthDays(year: number, month: number) {
     const previousMonthDays = [];
     const currentMonthFirstDay = moment().year(year).month(month).startOf('month');
-    console.log('currentMonthFirstDay', currentMonthFirstDay);
 
     if(currentMonthFirstDay.weekday() === 0){
       return previousMonthDays;
     }
 
     const previousMonthFirstDay = moment(currentMonthFirstDay).subtract(1,'month').endOf('month')
-    console.log('previousMonthFirstDay', previousMonthFirstDay);
 
     let previousMonthDay = previousMonthFirstDay;
 
@@ -100,19 +100,18 @@ export class MonthComponent implements OnInit {
 
     previousMonthDays.push({
       dayNumber: previousMonthDay.date(),
+      weekDay: previousMonthDay.weekday(),
       dateFormatted: previousMonthDay.format('YYYY-MM-DD'),
       date: previousMonthDay,
       previousMonth: true
     });
 
     return previousMonthDays.reverse();
-
   }
 
   getNextMonthDays(year: number, month: number) {
     const nextMonthDays = [];
     const currentMonthLastDay = moment().year(year).month(month).endOf('month');
-    console.log('currentMonthLastDay', currentMonthLastDay);
 
     if(currentMonthLastDay.weekday() === 6){
       return nextMonthDays;
@@ -149,7 +148,6 @@ export class MonthComponent implements OnInit {
     const params = { year, month };
     this.calendarService.getAllReminders(params)
       .subscribe((data: Reminder[]) => {
-        console.log(data);
         this.addRemindersToDays(data);
       },
       error => this.toastr.error(error, 'Error getting reminder'));
@@ -167,7 +165,6 @@ export class MonthComponent implements OnInit {
 
   createReminder(day: Day) {
     if (day.currentMonth) {
-      console.log(`openModal for day: ${day.dayNumber}`);
       const modalRef = this.modalService.open(ReminderModalComponent, this.globals.mdModal);
       modalRef.componentInstance.day = day;
       modalRef.closed.subscribe((reminderCreated: Reminder) => {
@@ -177,8 +174,6 @@ export class MonthComponent implements OnInit {
   }
 
   addReminderToDay(reminder: Reminder) {
-    console.log('addReminderToDay');
-
     this.days.map((day) => {
       if (day.year == reminder.date.year && day.month == reminder.date.month && day.dayNumber == reminder.date.day) {
         day.reminders.push(reminder);
@@ -188,7 +183,6 @@ export class MonthComponent implements OnInit {
   }
 
   handleReminderUpdated(reminderUpdated: Reminder, day: Day, dayIndex: number) {
-    console.log('handleReminderUpdated');
     if (day.year == reminderUpdated.date.year && day.month == reminderUpdated.date.month && day.dayNumber == reminderUpdated.date.day) { // same day after updated
       this.updateReminderInDay(reminderUpdated, dayIndex)
     } else {
