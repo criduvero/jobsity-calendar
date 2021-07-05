@@ -4,11 +4,8 @@
 
 <div class="modal-body">
   <div class="form-group">
-    <label for="name">Title</label>
-      <input type="text" class="form-control" id="title" name="title" placeholder="Add a title" [(ngModel)]="reminder.title" #title="ngModel" required maxlength="30">
-      <div class="invalid-feedback" *ngIf="title.invalid && (title.dirty || title.touched)">
-        <p *ngIf="title?.errors.required">Title is required</p>
-      </div>
+    <!-- <label for="title">Title</label> -->
+    <input type="text" class="form-control" id="title" name="title" placeholder="Add a title" [(ngModel)]="reminder.title" maxlength="30">
   </div>
   <form autocomplete="off">
     <div class="form-group row">
@@ -34,7 +31,7 @@
 
   <ngb-alert *ngIf="fieldsValidationError" type="danger" [dismissible]="false">Please fill in all the fields correctly</ngb-alert>
 </div>
-<!-- <pre> {{ reminder | json }}</pre> -->
+<pre> {{ reminder | json }}</pre>
 <div class="modal-footer">
   <button class="btn btn-outline-secondary" type="button" (click)="activeModal.dismiss()" [disabled]="isLoading">Cancel</button>
   <button class="btn btn-primary" (click)="submitForm()" [ladda]="isLoading">

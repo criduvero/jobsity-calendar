@@ -28,13 +28,16 @@ export class ReminderModalComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.day);
-    this.reminder = new Reminder('', {year: this.day.year, month: this.day.month, day: this.day.dayNumber}, {hour: null, minute: null}, '#2f75b5');
-
-    this.reminderId ? this.getReminder(this.reminderId) : null ;
+    if (this.reminderId) { // reminder update process
+      this.reminder = new Reminder('', {year: null, month: null, day: null}, {hour: null, minute: null}, null);
+      this.getReminder(this.reminderId);
+    } else {
+      this.reminder = new Reminder('', {year: this.day.year, month: this.day.month, day: this.day.dayNumber}, {hour: null, minute: null}, '#2f75b5');
+    }
   }
 
   getReminder(reminderId: string) {
-    this.calendarService.get(reminderId)
+    this.calendarService.getReminder(reminderId)
       .subscribe((data: Reminder) => {
         // console.log(data);
         this.reminder = data;
@@ -61,7 +64,7 @@ export class ReminderModalComponent implements OnInit {
       return false;
     }
 
-    if (!(this.reminder.time.hour && this.reminder.time.minute)) {
+    if (this.reminder.time == null) {
       this.showValidationAlert();
       return false;
     }
@@ -77,7 +80,7 @@ export class ReminderModalComponent implements OnInit {
   }
 
   onCreate() {
-    this.calendarService.create(this.reminder)
+    this.calendarService.createReminder(this.reminder)
       .subscribe(
         (reminderCreated: Reminder) => {
           this.toastr.success('The reminder has been successfully created', 'Successful operation');
@@ -91,17 +94,17 @@ export class ReminderModalComponent implements OnInit {
   }
 
   onUpdate() {
-    /* this.gService.updateWithPicture(this.constants.products, this.product, this.fileToUpload)
+    this.calendarService.updateReminder(this.reminder)
       .subscribe(
-        (data: Product) => {
-          this.toastr.success('El producto se ha actualizado correctamente', 'Operación exitosa');
+        (reminderUpdated: Reminder) => {
+          this.toastr.success('The reminder has been successfully updated', 'Successful operation');
           this.isLoading = false;
-          this.activeModal.close();
+          this.activeModal.close(reminderUpdated);
           },
         error => {
           this.toastr.error(error, 'Operación fallida');
           this.isLoading = false;
-        }); */
+        });
   }
 
   prueba(e) {

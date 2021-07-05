@@ -33,7 +33,7 @@ export class MonthComponent implements OnInit {
     private globals: Globals,
     private calendarService: CalendarService,
     private modalService: NgbModal,
-    private toastr: ToastrService,) { }
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.year = moment().year();
@@ -147,7 +147,7 @@ export class MonthComponent implements OnInit {
 
   getReminders(year:number, month: number) {
     const params = { year, month };
-    this.calendarService.getAll(params)
+    this.calendarService.getAllReminders(params)
       .subscribe((data: Reminder[]) => {
         console.log(data);
         this.addRemindersToDays(data);

@@ -15,7 +15,7 @@ export class CalendarService {
 
   constructor(private http: HttpClient) { }
 
-  getAll(myParams: any): Observable<Reminder[]> {
+  getAllReminders(myParams: any): Observable<Reminder[]> {
     console.log('getAll', myParams);
     const url = `${this.API_URL}`;
     const params: HttpParams  = new HttpParams({ fromObject: myParams });
@@ -25,7 +25,7 @@ export class CalendarService {
         catchError(this.handleError));
   }
 
-  get(id: string): Observable<Reminder> {
+  getReminder(id: string): Observable<Reminder> {
     console.log('get', id);
     const url = `${this.API_URL}/${id}`;
     return this.http
@@ -34,7 +34,7 @@ export class CalendarService {
         catchError(this.handleError));
   }
 
-  create(object: Reminder): Observable<Reminder> {
+  createReminder(object: Reminder): Observable<Reminder> {
     console.log('create', object);
     const url = `${this.API_URL}`;
     return this.http
@@ -43,7 +43,7 @@ export class CalendarService {
       catchError(this.handleError));
   }
 
-  update(object: Reminder): Observable<Reminder> {
+  updateReminder(object: Reminder): Observable<Reminder> {
     console.log(`update`, object);
     const url = `${this.API_URL}/update/${object._id}`;
     return this.http
@@ -52,7 +52,7 @@ export class CalendarService {
         catchError(this.handleError));
   }
 
-  delete(object: Reminder): Observable<Reminder> {
+  deleteReminder(object: Reminder): Observable<Reminder> {
     return this.http
     .delete<Reminder>(`${this.API_URL}/${object._id}`).pipe(
     tap(console.log),
